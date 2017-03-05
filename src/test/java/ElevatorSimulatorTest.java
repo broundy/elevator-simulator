@@ -9,4 +9,18 @@ public class ElevatorSimulatorTest {
         ElevatorSimulator classUnderTest = new ElevatorSimulator();
         assertNotNull("app should have a startup message", classUnderTest.getStartupMessage());
     }
+
+    @Test
+    public void testNoArgDetaultFloorsAndElevators() {
+        ElevatorSimulator classUnderTest = new ElevatorSimulator();
+        assertEquals("simulator should have 1 elevator", 1, classUnderTest.getElevators().size());
+    }
+
+    @Test
+    public void testArgsShouldMatchFloorsAndElevators() {
+        int floors = 10;
+        int elevators = 2;
+        ElevatorSimulator classUnderTest = new ElevatorSimulator(floors, elevators);
+        assertEquals("simulator should have correct nuber of elevators", elevators, classUnderTest.getElevators().size());
+    }
 }
