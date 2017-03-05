@@ -26,6 +26,14 @@ public class Elevator{
     } 
 
     public void moveToFloor(int destination){
+        if(destination > floors) {
+            throw new IllegalArgumentException("Elevator does not support destination greater than " + floors);
+        }
+
+        if(destination < 1) {
+            throw new IllegalArgumentException("Elevator does not support destination less than 1");
+        }
+
         System.out.println("Moving to floor " + destination);
         currentFloor = destination;
     }
