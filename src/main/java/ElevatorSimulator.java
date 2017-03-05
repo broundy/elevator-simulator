@@ -49,8 +49,6 @@ public class ElevatorSimulator {
         System.out.println("Requesting an elevator for floor " + requestingFloor);
         Elevator e = this.getNearestElevator(requestingFloor);
         e.moveToFloor(requestingFloor);
-        e.openDoors();
-        e.closeDoors();
     }
 
     public Elevator getNearestElevator(int floor){

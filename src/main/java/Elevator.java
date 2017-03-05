@@ -5,6 +5,8 @@ public class Elevator{
     private int floors;
     private int currentFloor;
     private boolean doorsOpen;
+    private int floorsTraveled;
+    private int tripsMade;
 
     public Elevator(){
         this(2);
@@ -15,6 +17,8 @@ public class Elevator{
         currentFloor = 1;
         doorsOpen = false;
         id = UUID.randomUUID();
+        floorsTraveled = 0;
+        tripsMade = 0;
     }
 
     public UUID getId() {
@@ -33,6 +37,14 @@ public class Elevator{
         return doorsOpen;
     } 
 
+    public int getTripsMade() {
+        return tripsMade;
+    } 
+
+    public int getFloorsTraveled() {
+        return floorsTraveled;
+    } 
+
     public void moveToFloor(int destination){
         if(destination > floors) {
             throw new IllegalArgumentException("Elevator does not support destination greater than " + floors);
@@ -43,7 +55,13 @@ public class Elevator{
         }
 
         System.out.println("Moving to floor " + destination);
+        //Update the floors traveled and trips log
+        floorsTraveled += Math.abs(currentFloor - destination);
+        tripsMade +=1;
+
         currentFloor = destination;
+        openDoors();
+        closeDoors();
     }
 
     public void openDoors(){

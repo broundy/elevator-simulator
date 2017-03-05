@@ -46,4 +46,28 @@ public class ElevatorTest{
         Elevator classUnderTest = new Elevator(TEST_FLOORS);
         classUnderTest.moveToFloor(-20);
     }  
+
+    @Test
+    public void testAccurateFloorsTraveledLog() {
+        Elevator classUnderTest = new Elevator(TEST_FLOORS);
+        assertEquals("floors traveled log updates correctly", 0, classUnderTest.getFloorsTraveled());
+        classUnderTest.moveToFloor(10);
+        assertEquals("floors traveled log updates correctly", 9, classUnderTest.getFloorsTraveled());
+        classUnderTest.moveToFloor(8);
+        assertEquals("floors traveled log updates correctly", 11, classUnderTest.getFloorsTraveled());
+        classUnderTest.moveToFloor(15);
+        assertEquals("floors traveled log updates correctly", 18, classUnderTest.getFloorsTraveled());
+    }   
+
+    @Test
+    public void testAccurateTripsMadeLog() {
+        Elevator classUnderTest = new Elevator(TEST_FLOORS);
+        assertEquals("floors traveled log updates correctly", 0, classUnderTest.getTripsMade());
+        classUnderTest.moveToFloor(10);
+        assertEquals("floors traveled log updates correctly", 1, classUnderTest.getTripsMade());
+        classUnderTest.moveToFloor(8);
+        assertEquals("floors traveled log updates correctly", 2, classUnderTest.getTripsMade());
+        classUnderTest.moveToFloor(15);
+        assertEquals("floors traveled log updates correctly", 3, classUnderTest.getTripsMade());
+    }   
 }
