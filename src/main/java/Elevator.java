@@ -1,7 +1,10 @@
+import java.util.*;
+
 public class Elevator{
-    public int floors;
-    public int currentFloor;
-    public boolean doorsOpen;
+    private UUID id;
+    private int floors;
+    private int currentFloor;
+    private boolean doorsOpen;
 
     public Elevator(){
         this(2);
@@ -11,7 +14,12 @@ public class Elevator{
         floors = f;
         currentFloor = 1;
         doorsOpen = false;
+        id = UUID.randomUUID();
     }
+
+    public UUID getId() {
+        return id;
+    } 
 
     public int getFloors() {
         return floors;

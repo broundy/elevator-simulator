@@ -5,7 +5,7 @@ import java.util.*;
  */
 public class ElevatorSimulator {
     private static int DEFAULT_FLOORS = 2;
-    public List<Elevator> elevators;
+    private List<Elevator> elevators;
 
     public ElevatorSimulator(){
         List<Elevator> createdElevators = new ArrayList<Elevator>();
@@ -44,4 +44,32 @@ public class ElevatorSimulator {
     public Elevator createElevator(int floors){
         return new Elevator(floors);
     } 
+
+    public void requestElevator(int requestingFloor){
+        System.out.println("Requesting an elevator for floor " + requestingFloor);
+        Elevator e = this.getNearestElevator(requestingFloor);
+        e.moveToFloor(requestingFloor);
+        e.openDoors();
+        e.closeDoors();
+    }
+
+    public Elevator getNearestElevator(int floor){
+        Elevator nearest = null;
+        for(Elevator elevator : elevators){
+            if(nearest == null){
+                nearest = elevator;
+            }else{
+                // Find the difference between requested floor and an elevators current floor
+                // and if an elevator is closer use it
+                int currentFloor = elevator.getCurrentFloor();
+                int nearestCurrentFloor = nearest.getCurrentFloor();
+                int currentFloorDifference = Math.abs(currentFloor - floor);
+                int nearestFloorDifference = Math.abs(nearestCurrentFloor - floor);
+                if(currentFloorDifference < nearestFloorDifference){
+                    nearest = elevator;
+                }
+            }
+        }
+        return nearest;
+    }
 }
