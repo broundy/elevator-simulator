@@ -11,63 +11,57 @@ public class ElevatorTest{
     }   
 
     @Test
-    public void testMoveElevatorToFloor() {
-        int destination = 2;
+    public void testMoveElevatorToFloor() throws Exception {
+        int destination1 = 2;
+        int destination2 = 5;
+        int destination3 = 1;
         Elevator classUnderTest = new Elevator(TEST_FLOORS);
+        new Thread(classUnderTest).start();
         assertEquals("current floor should be 1", 1, classUnderTest.getCurrentFloor());
-        classUnderTest.moveToFloor(destination);
-        assertEquals("current floor should match destination", destination, classUnderTest.getCurrentFloor());
+        classUnderTest.addToQueue(destination1);
+        Thread.sleep(3000);   
+        assertEquals("current floor should match destination", destination1, classUnderTest.getCurrentFloor());
+        classUnderTest.addToQueue(destination2);
+        Thread.sleep(7000);  
+        assertEquals("current floor should match destination", destination2, classUnderTest.getCurrentFloor());
+        classUnderTest.addToQueue(destination3);
+        Thread.sleep(8000);  
+        assertEquals("current floor should match destination", destination3, classUnderTest.getCurrentFloor());
     }   
 
     @Test
-    public void testOpenAndCloseDoors() {
+    public void testAddWhileMoveElevatorToFloor() throws Exception {
+        int destination1 = 7;
+        int destination2 = 5;
         Elevator classUnderTest = new Elevator(TEST_FLOORS);
-        assertEquals("doors should be closed", false, classUnderTest.getDoorsOpen());
-        classUnderTest.openDoors();
-        assertEquals("doors should be open", true, classUnderTest.getDoorsOpen());
-        classUnderTest.closeDoors();
-        assertEquals("doors should be closed", false, classUnderTest.getDoorsOpen());
+        new Thread(classUnderTest).start();
+        assertEquals("current floor should be 1", 1, classUnderTest.getCurrentFloor());
+        classUnderTest.addToQueue(destination1);
+        Thread.sleep(2000);  
+        classUnderTest.addToQueue(destination2);
+        Thread.sleep(5500);   
+        assertEquals("current floor should match destination", destination2, classUnderTest.getCurrentFloor());
+        Thread.sleep(4000);  
+        assertEquals("current floor should match destination", destination1, classUnderTest.getCurrentFloor());
     }   
 
-    @Test(expected = IllegalArgumentException.class) 
-    public void testDestinationGreaterThanFloors() {
-        Elevator classUnderTest = new Elevator(TEST_FLOORS);
-        classUnderTest.moveToFloor(TEST_FLOORS + 1);
-    }  
-
-    @Test(expected = IllegalArgumentException.class) 
-    public void testDestinationFloorZero() {
-        Elevator classUnderTest = new Elevator(TEST_FLOORS);
-        classUnderTest.moveToFloor(0);
-    }  
-
-    @Test(expected = IllegalArgumentException.class) 
-    public void testDestinationFloorNegative() {
-        Elevator classUnderTest = new Elevator(TEST_FLOORS);
-        classUnderTest.moveToFloor(-20);
-    }  
-
     @Test
-    public void testAccurateFloorsTraveledLog() {
+    public void testAccurateFloorsTraveledLog() throws Exception {
         Elevator classUnderTest = new Elevator(TEST_FLOORS);
+        new Thread(classUnderTest).start();
         assertEquals("floors traveled log updates correctly", 0, classUnderTest.getFloorsTraveled());
-        classUnderTest.moveToFloor(10);
+        classUnderTest.addToQueue(10);
+        Thread.sleep(11000); 
         assertEquals("floors traveled log updates correctly", 9, classUnderTest.getFloorsTraveled());
-        classUnderTest.moveToFloor(8);
-        assertEquals("floors traveled log updates correctly", 11, classUnderTest.getFloorsTraveled());
-        classUnderTest.moveToFloor(15);
-        assertEquals("floors traveled log updates correctly", 18, classUnderTest.getFloorsTraveled());
     }   
 
     @Test
-    public void testAccurateTripsMadeLog() {
+    public void testAccurateTripsMadeLog() throws Exception {
         Elevator classUnderTest = new Elevator(TEST_FLOORS);
+        new Thread(classUnderTest).start();
         assertEquals("floors traveled log updates correctly", 0, classUnderTest.getTripsMade());
         classUnderTest.moveToFloor(10);
-        assertEquals("floors traveled log updates correctly", 1, classUnderTest.getTripsMade());
-        classUnderTest.moveToFloor(8);
-        assertEquals("floors traveled log updates correctly", 2, classUnderTest.getTripsMade());
-        classUnderTest.moveToFloor(15);
-        assertEquals("floors traveled log updates correctly", 3, classUnderTest.getTripsMade());
+        Thread.sleep(11000); 
+        assertEquals("floors traveled log updates correctly", 1, classUnderTest.getFloorsTraveled());
     }   
 }

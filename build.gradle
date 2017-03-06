@@ -27,6 +27,19 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+test {
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
+}
+
+run {
+    if (project.hasProperty("appArgs")) {
+        args Eval.me(appArgs)
+    }
+}
+
 // Define the main class for the application
 mainClassName = 'ElevatorSimulator'
 
